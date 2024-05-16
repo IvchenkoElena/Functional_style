@@ -20,9 +20,14 @@ public class main {
 
     private static Integer getItemsSum(Order order) {
         int sum = 0;
+        if (order == null || order.packages == null) return sum;
         for (Package pack : order.packages) {
-            for (Item item : pack.items){
-                sum += item.amount;
+            if (pack != null && pack.items != null) {
+                for (Item item : pack.items){
+                    if (item.amount != null) {
+                        sum += item.amount;
+                    }
+                }
             }
         }
         return sum;

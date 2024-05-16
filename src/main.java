@@ -24,7 +24,7 @@ public class main {
         for (Package pack : order.packages) {
             if (pack != null && pack.items != null) {
                 for (Item item : pack.items){
-                    if (item.amount != null) {
+                    if (item != null && item.amount != null) {
                         sum += item.amount;
                     }
                 }
@@ -34,8 +34,11 @@ public class main {
     }
 
     private static Integer getItemsSumStream(Order order) {
+        if (order == null || order.packages == null) return 0;
         return order.packages.stream()
+                .filter(pack -> pack != null && pack.items != null)
                 .flatMap(pack -> pack.items.stream())
+                .filter(item -> item != null && item.amount != null)
                 .mapToInt(item -> item.amount)
                 .sum();
     }

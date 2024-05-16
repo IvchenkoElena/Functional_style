@@ -30,9 +30,8 @@ public class main {
 
     private static Integer getItemsSumStream(Order order) {
         return order.packages.stream()
-                .mapToInt(pack -> pack.items.stream()
-                        .mapToInt(item -> item.amount)
-                        .sum())
+                .flatMap(pack -> pack.items.stream())
+                .mapToInt(item -> item.amount)
                 .sum();
     }
 }
